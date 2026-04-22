@@ -8,8 +8,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-orange: #FF8702;
+  --color-light-yellow: #F2B443;
+  --color-peach: #FFC081;
+  --font-manrope: var(--font-manrope);
+  --font-fatfrank: "fatfrank", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
