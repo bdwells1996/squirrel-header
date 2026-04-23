@@ -19,12 +19,16 @@ export default function LoadingScreen({
 	onComplete: () => void;
 }) {
 	const containerRef = useRef<HTMLDivElement>(null);
+	const squiggleRef = useRef<HTMLDivElement>(null);
 	const svgRef = useRef<SVGSVGElement>(null);
+	const mobileSvgRef = useRef<SVGSVGElement>(null);
 	const startTime = useRef(Date.now());
 	const [visible, setVisible] = useState(true);
 
 	useEffect(() => {
-		const path = svgRef.current?.querySelector("path");
+		const isMobile = window.innerWidth < 768;
+		const activeSvg = isMobile ? mobileSvgRef.current : svgRef.current;
+		const path = activeSvg?.querySelector("path");
 		if (!path) return;
 
 		gsap.set(path, { drawSVG: "0%" });
@@ -42,6 +46,11 @@ export default function LoadingScreen({
 					gsap.set(containerRef.current, {
 						borderBottomLeftRadius: "2rem",
 						borderBottomRightRadius: "2rem",
+					});
+					gsap.to(squiggleRef.current, {
+						y: window.innerHeight,
+						duration: 1,
+						ease: "0.55,0.55,0.2,1",
 					});
 					gsap.to(containerRef.current, {
 						yPercent: -100,
@@ -62,13 +71,22 @@ export default function LoadingScreen({
 	return (
 		<div
 			ref={containerRef}
-			className="fixed inset-0 z-50 flex items-center justify-center bg-orange"
+			className="fixed inset-0 z-50 overflow-hidden flex items-center justify-center bg-orange"
 		>
-			<div className="w-full relative">
+			<div ref={squiggleRef} className="w-full relative">
+				<h1 className="font-fatfrank text-4xl absolute left-1/2 top-[calc(50%-40px)] -translate-x-1/2 -translate-y-1/2">
+					Loading...
+				</h1>
 				<SquigglePath
 					svgRef={svgRef}
 					color="var(--color-peach)"
-					className="absolute left-0 top-6 -translate-y-1/2"
+					className="absolute left-0 top-6 -translate-y-1/2 hidden md:block"
+				/>
+				<SquigglePath
+					svgRef={mobileSvgRef}
+					variant="mobile"
+					color="var(--color-peach)"
+					className="absolute left-0 top-1/2 -translate-y-1/2 block md:hidden"
 				/>
 			</div>
 		</div>
