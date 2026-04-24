@@ -6,7 +6,7 @@ import { navLinks } from "./nav-links";
 
 export default function Nav() {
 	return (
-		<nav className="flex items-center justify-between p-2 pr-4 relative overflow-hidden">
+		<nav className="flex items-center justify-between p-2 pr-4 relative overflow-hidden lg:p-5 lg:pr-[46px]">
 			<Image
 				src="/shapes/opaque-page-top.svg"
 				alt=""
@@ -30,10 +30,9 @@ export default function Nav() {
 						key={link.href}
 						href={link.href}
 						className={clsx("uppercase", {
-							"bg-orange-500 text-white px-6 py-2 rounded-full font-fatfrank":
+							"bg-orange text-white px-6 py-2 rounded-full font-fatfrank":
 								link.style === "Button",
-							"font-manrope font-semibold text-neutral-900":
-								link.style !== "Button",
+							"font-manrope font-semibold text-black": link.style !== "Button",
 						})}
 					>
 						{link.label}

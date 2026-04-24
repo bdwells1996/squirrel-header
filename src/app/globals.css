@@ -2,18 +2,25 @@
 
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Colours */
   --color-orange: #FF8702;
   --color-black: #1F2C24;
   --color-white: #FFFBF3;
   --color-honey: #F2B443;
   --color-peach: #FFC081;
+  
+  /* Fonts */
   --font-manrope: var(--font-manrope);
   --font-fatfrank: "fatfrank", sans-serif;
+
+  /* Breakpoints */
   --breakpoint-smplus: 480px;
 }
 
+
+@utility text-outline {
+  -webkit-text-stroke: 1px var(--color-white);
+}
 
 body {
   color: var(--color-black);
