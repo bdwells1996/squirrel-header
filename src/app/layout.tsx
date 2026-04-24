@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav/Nav";
+import { LoadingProvider } from "@/context/LoadingContext";
 
 const manrope = Manrope({
 	variable: "--font-manrope",
@@ -29,8 +30,10 @@ export default function RootLayout({
 				<link rel="stylesheet" href="https://use.typekit.net/eow7mmi.css" />
 			</head>
 			<body>
-				<Nav />
-				{children}
+				<LoadingProvider>
+					<Nav />
+					{children}
+				</LoadingProvider>
 			</body>
 		</html>
 	);

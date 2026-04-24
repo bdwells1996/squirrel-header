@@ -1,12 +1,27 @@
+"use client";
+
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { MobileMenu } from "./components/MobileMenu";
 import { navLinks } from "./nav-links";
+import { useLoading } from "@/context/LoadingContext";
 
 export default function Nav() {
+	const { isLoaded } = useLoading();
+
 	return (
-		<nav className="flex items-center justify-between p-2 pr-4 relative overflow-hidden lg:p-5 lg:pr-[46px]">
+		<nav
+			className="flex items-center justify-between p-2 pr-4 relative overflow-hidden lg:p-5 lg:pr-[46px]"
+			style={
+				isLoaded
+					? {
+							animation:
+								"slide-down 0.3s cubic-bezier(0.65,0.05,0.36,1) both",
+						}
+					: { opacity: 0 }
+			}
+		>
 			<Image
 				src="/shapes/opaque-page-top.svg"
 				alt=""

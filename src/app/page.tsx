@@ -1,19 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import dynamic from "next/dynamic";
 import Header from "@/components/Header";
+import { useLoading } from "@/context/LoadingContext";
 
 const LoadingScreen = dynamic(() => import("@/components/LoadingScreen"), {
 	ssr: false,
 });
 
 export default function Home() {
-	const [loaded, setLoaded] = useState(false);
+	const { isLoaded, setIsLoaded } = useLoading();
 
 	return (
 		<>
-			{!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
+			{!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />}
 			<Header />
 		</>
 	);

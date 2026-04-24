@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import SquigglePath from "./SquigglePath";
 import Image from "next/image";
 import Button from "./Button";
 import Icon from "./Icon";
 import ButtonArrow from "../../public/icons/button-arrow.svg";
+import { useLoading } from "@/context/LoadingContext";
 
 type HeaderProps = {
 	variant?: "default" | "peach";
@@ -14,7 +17,19 @@ const variantColors: Record<NonNullable<HeaderProps["variant"]>, string> = {
 	peach: "#FFC081",
 };
 
+const EASING = "cubic-bezier(0.65,0.05,0.36,1)";
+const DURATION = "0.4s";
+
+function slideUpStyle(isLoaded: boolean, delayMs: number): React.CSSProperties {
+	if (!isLoaded) return { transform: "translateY(100%)" };
+	return {
+		animation: `slide-up ${DURATION} ${EASING} ${delayMs}ms both`,
+	};
+}
+
 export default function Header({ variant = "default" }: HeaderProps) {
+	const { isLoaded } = useLoading();
+
 	return (
 		<header className="w-full flex justify-center relative overflow-hidden">
 			<SquigglePath
@@ -36,14 +51,18 @@ export default function Header({ variant = "default" }: HeaderProps) {
 					</p>
 				</span>
 				<div className="flex flex-col w-full lg:flex-row lg:justify-center lg:gap-10 lg:max-w-[1300px]">
-					<h1 className="text-[60px] font-fatfrank uppercase flex flex-col leading-[102%] self-start z-2 ml-[10px] smplus:text-[95px] md:text-[105px] lg:text-[152px] lg:self-center lg:text-right">
-						<span className="flex items-baseline gap-3 ml-[14px] lg:contents">
-							<span>Tell </span>
-							<span className=" lg:text-[266px] lg:translate-x-38 lg:text-outline">
-								Big
-							</span>
-						</span>
-						<span> Tails</span>
+					<h1 className="text-[60px] font-fatfrank uppercase flex flex-col self-start z-2 ml-[10px] smplus:text-[95px] md:text-[105px] lg:text-[152px] lg:self-center lg:text-right">
+						<div className="flex items-baseline gap-3 ml-[14px] lg:contents">
+							<div className="overflow-hidden leading-[100%] lg:leading-[80%]">
+								<p style={slideUpStyle(isLoaded, 0)}>Tell</p>
+							</div>
+							<div className="overflow-hidden leading-[100%] lg:leading-[80%] lg:text-[266px] lg:translate-x-38 lg:text-outline">
+								<p style={slideUpStyle(isLoaded, 100)}>Big</p>
+							</div>
+						</div>
+						<div className="overflow-hidden leading-[100%] lg:leading-[80%]">
+							<p style={slideUpStyle(isLoaded, 200)}>Tails</p>
+						</div>
 					</h1>
 					<Image
 						src="/images/header/god-of-war.jpg"
