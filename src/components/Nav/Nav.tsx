@@ -17,7 +17,7 @@ export default function Nav() {
 				isLoaded
 					? {
 							animation:
-								"slide-down 0.3s cubic-bezier(0.65,0.05,0.36,1) both",
+								"slide-down 0.3s cubic-bezier(0.65,0.05,0.36,1) 300ms both",
 						}
 					: { opacity: 0 }
 			}

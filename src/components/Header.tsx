@@ -17,15 +17,41 @@ const variantColors: Record<NonNullable<HeaderProps["variant"]>, string> = {
 	peach: "#FFC081",
 };
 
-const EASING = "cubic-bezier(0.65,0.05,0.36,1)";
-const DURATION = "0.4s";
+import { animStyle } from "@/lib/animation";
 
-function slideUpStyle(isLoaded: boolean, delayMs: number): React.CSSProperties {
-	if (!isLoaded) return { transform: "translateY(100%)" };
-	return {
-		animation: `slide-up ${DURATION} ${EASING} ${delayMs}ms both`,
-	};
-}
+const EASING = "cubic-bezier(0.65,0.05,0.36,1)";
+const SNAP = "cubic-bezier(0.79,0.14,0.15,0.86)";
+
+const slideUpStyle = animStyle({
+	animation: `slide-up 0.4s ${EASING} __delay__ms both`,
+	hidden: { transform: "translateY(100%)" },
+});
+
+const containerRevealStyle = animStyle({
+	animation: `container-reveal 0.8s ${EASING} __delay__ms both`,
+	hidden: { clipPath: "inset(100% 1% 0 1%)", transform: "translateY(-20px)" },
+});
+
+const imageSlideUpStyle = animStyle({
+	animation: `image-slide-up 0.7s ${SNAP} __delay__ms both`,
+	hidden: { transform: "translateY(100%)" },
+});
+
+const buttonRevealStyle = animStyle({
+	animation: `button-reveal 0.4s ${EASING} __delay__ms both`,
+	hidden: { transform: "scale(0)", transformOrigin: "top center" },
+	loaded: { transformOrigin: "top center" },
+});
+
+const iconSlideDownStyle = animStyle({
+	animation: `icon-slide-down 0.35s ${SNAP} __delay__ms both`,
+	hidden: { transform: "translateY(-150%)" },
+});
+
+const fadeUpStyle = animStyle({
+	animation: `fade-up 0.4s ${EASING} __delay__ms both`,
+	hidden: { opacity: 0 },
+});
 
 export default function Header({ variant = "default" }: HeaderProps) {
 	const { isLoaded } = useLoading();
@@ -42,54 +68,67 @@ export default function Header({ variant = "default" }: HeaderProps) {
 				className="absolute left-0 -top-[17vw] block z-[-1] smplus:-top-[25vw] md:-top-[39vw] lg:hidden"
 			/>
 			<div className="flex flex-col items-center w-full px-4">
-				<span className="max-w-41.25 text-xs font-manrope mb-11 mt-7 smplus:text-sm smplus:max-w-52 lg:max-w-[302px]">
-					<p className="text-orange font-semibold flex justify-start">
-						Lorem ipsum dolor sit amet
+				<div className="overflow-hidden mb-11 mt-7">
+					<p
+						className="max-w-41.25 text-xs font-manrope font-semibold text-orange smplus:text-sm smplus:max-w-52 lg:max-w-[302px]"
+						style={slideUpStyle(isLoaded, 300)}
+					>
+						Lorem ipsum dolor sit amet consectetur. vestibulum fringilla est in
+						mauris auctor,
 					</p>
-					<p className="text-orange font-semibold flex justify-start">
-						consectetur. vestibulum fringilla est in mauris auctor,
-					</p>
-				</span>
+				</div>
 				<div className="flex flex-col w-full lg:flex-row lg:justify-center lg:gap-10 lg:max-w-[1300px]">
 					<h1 className="text-[60px] font-fatfrank uppercase flex flex-col self-start z-2 ml-[10px] smplus:text-[95px] md:text-[105px] lg:text-[152px] lg:self-center lg:text-right">
 						<div className="flex items-baseline gap-3 ml-[14px] lg:contents">
 							<div className="overflow-hidden leading-[100%] lg:leading-[80%]">
-								<p style={slideUpStyle(isLoaded, 0)}>Tell</p>
+								<p style={slideUpStyle(isLoaded, 150)}>Tell</p>
 							</div>
 							<div className="overflow-hidden leading-[100%] lg:leading-[80%] lg:text-[266px] lg:translate-x-38 lg:text-outline">
-								<p style={slideUpStyle(isLoaded, 100)}>Big</p>
+								<p style={slideUpStyle(isLoaded, 250)}>Big</p>
 							</div>
 						</div>
 						<div className="overflow-hidden leading-[100%] lg:leading-[80%]">
-							<p style={slideUpStyle(isLoaded, 200)}>Tails</p>
+							<p style={slideUpStyle(isLoaded, 350)}>Tails</p>
 						</div>
 					</h1>
-					<Image
-						src="/images/header/god-of-war.jpg"
-						alt="God of War"
-						width={765}
-						height={430}
-						className="w-[61%] rounded-lg overflow-hidden -mt-19 self-end aspect-[197/179] smplus:-mt-30 md:-mt-34 lg:aspect-video lg:max-w-[857px] lg:mt-0 lg:rounded-2xl lg:w-[85%]"
-					/>
+					<div
+						className="w-[61%] -mt-19 self-end smplus:-mt-30 md:-mt-34 lg:mt-0 lg:max-w-[857px] lg:w-[85%] bg-black overflow-hidden rounded-2xl"
+						style={containerRevealStyle(isLoaded, 0)}
+					>
+						<Image
+							src="/images/header/god-of-war.jpg"
+							alt="God of War"
+							width={765}
+							height={430}
+							className="w-full aspect-[197/179] lg:aspect-video"
+							style={imageSlideUpStyle(isLoaded, 0)}
+						/>
+					</div>
 				</div>
-				<div className="flex flex-wrap gap-x-6 items-center font-fatfrank uppercase w-full mt-12 ml-2 lg:justify-end lg:max-w-[1300px] lg:gap-x-20 lg:-translate-x-7">
-					<Link href="/">
-						<Button variant="primary">Learn more</Button>
-					</Link>
-					<Link href="/">
-						<Button variant="secondary">Contact us</Button>
-					</Link>
+				<div className="flex flex-wrap items-center font-fatfrank uppercase w-full mt-12 ml-2 lg:justify-end lg:max-w-[1300px] lg:gap-x-20 lg:-translate-x-7">
+					<span
+						className="flex flex-wrap gap-x-6 lg:gap-x-20"
+						style={fadeUpStyle(isLoaded, 300)}
+					>
+						<Link href="/">
+							<Button variant="primary">Learn more</Button>
+						</Link>
+						<Link href="/">
+							<Button variant="secondary">Contact us</Button>
+						</Link>
+					</span>
 					<div className="basis-full flex justify-center mt-[48px] mb-[54px] lg:mt-3 lg:justify-start">
 						<button
 							type="button"
-							className="w-[66px] h-[66px] rounded-full bg-honey flex items-center justify-center cursor-pointer lg:w-[108px] lg:h-[108px] lg:translate-x-84"
+							className="w-[66px] h-[66px] rounded-full bg-honey flex items-center justify-center cursor-pointer overflow-hidden lg:w-[108px] lg:h-[108px] lg:translate-x-84"
+							style={buttonRevealStyle(isLoaded, 300)}
 						>
-							<Icon
-								svg={ButtonArrow}
-								className="rotate-90 text-white"
-								width={24}
-								height={20}
-							/>
+							<span style={iconSlideDownStyle(isLoaded, 640)}>
+								<Icon
+									svg={ButtonArrow}
+									className="rotate-90 text-white w-6 h-5 lg:w-[34px] lg:h-[28px]"
+								/>
+							</span>
 						</button>
 					</div>
 				</div>

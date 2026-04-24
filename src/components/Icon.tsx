@@ -9,8 +9,8 @@ type IconProps = SVGProps<SVGSVGElement> & {
 export default function Icon({
 	svg: Svg,
 	className,
-	width = "100%",
-	height = "100%",
+	width,
+	height,
 	...props
 }: IconProps) {
 	return <Svg className={className} width={width} height={height} {...props} />;
