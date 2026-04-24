@@ -10,8 +10,9 @@ gsap.registerPlugin(DrawSVGPlugin, CustomEase);
 
 CustomEase.create("squiggle-ease", "0.79,0.14,0.15,0.86");
 
-const MIN_DURATION_MS = 2000;
 const DRAW_DURATION = 1.6;
+// Time before squiggle starts (counter goes 0 → 30 over this period)
+const PRE_DRAW_DURATION = 1.0;
 
 export default function LoadingScreen({
 	onComplete,
@@ -22,8 +23,8 @@ export default function LoadingScreen({
 	const squiggleRef = useRef<HTMLDivElement>(null);
 	const svgRef = useRef<SVGSVGElement>(null);
 	const mobileSvgRef = useRef<SVGSVGElement>(null);
-	const startTime = useRef(Date.now());
 	const [visible, setVisible] = useState(true);
+	const [counter, setCounter] = useState(0);
 
 	useEffect(() => {
 		const isMobile = window.innerWidth < 1024;
@@ -33,35 +34,47 @@ export default function LoadingScreen({
 
 		gsap.set(path, { drawSVG: "0%" });
 
-		gsap.to(path, {
-			drawSVG: "100%",
-			duration: DRAW_DURATION,
-			ease: "squiggle-ease",
+		const counterObj = { value: 0 };
+
+		// Phase 1: count 0 → 30, then kick off squiggle + count to 100
+		gsap.to(counterObj, {
+			value: 30,
+			duration: PRE_DRAW_DURATION,
+			ease: "power1.in",
+			onUpdate: () => setCounter(Math.round(counterObj.value)),
 			onComplete: () => {
-				const remaining = Math.max(
-					0,
-					MIN_DURATION_MS - (Date.now() - startTime.current),
-				);
-				setTimeout(() => {
-					gsap.set(containerRef.current, {
-						borderBottomLeftRadius: "2rem",
-						borderBottomRightRadius: "2rem",
-					});
-					gsap.to(squiggleRef.current, {
-						y: window.innerHeight,
-						duration: 1,
-						ease: "0.55,0.55,0.2,1",
-					});
-					gsap.to(containerRef.current, {
-						yPercent: -100,
-						duration: 1,
-						ease: "0.55,0.55,0.2,1",
-						onComplete: () => {
-							setVisible(false);
-							onComplete();
-						},
-					});
-				}, remaining);
+				gsap.to(path, {
+					drawSVG: "100%",
+					duration: DRAW_DURATION,
+					ease: "squiggle-ease",
+					onComplete: () => {
+						gsap.set(containerRef.current, {
+							borderBottomLeftRadius: "2rem",
+							borderBottomRightRadius: "2rem",
+						});
+						gsap.to(squiggleRef.current, {
+							y: window.innerHeight,
+							duration: 1,
+							ease: "0.55,0.55,0.2,1",
+						});
+						gsap.to(containerRef.current, {
+							yPercent: -100,
+							duration: 1,
+							ease: "0.55,0.55,0.2,1",
+							onComplete: () => {
+								setVisible(false);
+								onComplete();
+							},
+						});
+					},
+				});
+
+				gsap.to(counterObj, {
+					value: 100,
+					duration: DRAW_DURATION,
+					ease: "power1.inOut",
+					onUpdate: () => setCounter(Math.round(counterObj.value)),
+				});
 			},
 		});
 	}, [onComplete]);
@@ -74,8 +87,8 @@ export default function LoadingScreen({
 			className="fixed inset-0 z-50 overflow-hidden flex items-center justify-center bg-orange"
 		>
 			<div ref={squiggleRef} className="w-full h-full relative">
-				<h1 className="font-fatfrank text-white text-4xl absolute left-1/2 top-[calc(50%-40px)] -translate-x-1/2 -translate-y-1/2">
-					Loading...
+				<h1 className="font-fatfrank text-white text-4xl absolute left-1/2 top-[calc(200px)] -translate-x-1/2 smplus:top-[calc(300px)] md:top-[calc(400px)] lg:top-[calc(450px)]">
+					{counter}%
 				</h1>
 				<SquigglePath
 					svgRef={svgRef}

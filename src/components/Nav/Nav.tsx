@@ -12,7 +12,7 @@ export default function Nav() {
 				alt=""
 				width={1440}
 				height={400}
-				className="absolute -top-4 left-10 z-0 w-full h-auto pointer-events-none"
+				className="absolute -top-4 left-10 z-0 w-full h-auto pointer-events-none md:-top-12 lg:-top-16 xl:-top-20 2xl:-top-30"
 			/>
 			<Link href="/">
 				<Image
