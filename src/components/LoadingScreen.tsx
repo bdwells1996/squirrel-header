@@ -10,7 +10,7 @@ gsap.registerPlugin(DrawSVGPlugin, CustomEase);
 
 CustomEase.create("squiggle-ease", "0.79,0.14,0.15,0.86");
 
-const MIN_DURATION_MS = 20000;
+const MIN_DURATION_MS = 2000;
 const DRAW_DURATION = 1.6;
 
 export default function LoadingScreen({
@@ -74,13 +74,13 @@ export default function LoadingScreen({
 			className="fixed inset-0 z-50 overflow-hidden flex items-center justify-center bg-orange"
 		>
 			<div ref={squiggleRef} className="w-full h-full relative">
-				<h1 className="font-fatfrank text-4xl absolute left-1/2 top-[calc(50%-40px)] -translate-x-1/2 -translate-y-1/2">
+				<h1 className="font-fatfrank text-white text-4xl absolute left-1/2 top-[calc(50%-40px)] -translate-x-1/2 -translate-y-1/2">
 					Loading...
 				</h1>
 				<SquigglePath
 					svgRef={svgRef}
 					color="var(--color-peach)"
-					className="absolute left-0 top-[calc(30vw_-_156px)] z-[-1] hidden lg:block xl:top-[calc(17vw_-_156px)] 2xl:top-[calc(8vw_-_156px)]"
+					className="absolute left-0 top-[calc(30vw+136px)] z-[-1] hidden lg:block xl:top-[calc(17vw+136px)] 2xl:top-[calc(8vw+136px)]"
 				/>
 				<SquigglePath
 					svgRef={mobileSvgRef}
