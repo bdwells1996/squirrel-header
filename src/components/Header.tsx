@@ -80,7 +80,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
 				</div>
 				<div className="flex flex-wrap items-center font-fatfrank uppercase w-full mt-12 ml-2 lg:justify-end lg:max-w-[1300px] lg:gap-x-20 lg:-translate-x-7">
 					<span
-						className="flex flex-wrap gap-x-6 lg:gap-x-20"
+						className="flex flex-wrap gap-x-6 lg:gap-x-16"
 						style={fadeUpStyle(isLoaded, 300)}
 					>
 						<Link href="/">
