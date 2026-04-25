@@ -20,7 +20,7 @@ export default function Button({
 		{
 			"primary-button border border-orange text-orange h-[38px] pl-5 pr-4 rounded-full gap-2 md:gap-5":
 				variant === "primary",
-			"secondary-button text-black px-6 py-1.5 relative flex":
+			"secondary-button text-black px-6 h-[38px] relative flex":
 				variant === "secondary",
 		},
 	);

@@ -165,12 +165,18 @@
 .secondary-button::after {
   content: "";
   position: absolute;
-  width: 70%;
+  width: 64%;
   height: 1.5px;
   bottom: 0;
   background-color: var(--color-black);
   transition: opacity 0.4s cubic-bezier(0.79, 0.14, 0.15, 0.86);
   opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .secondary-button::after {
+    width: 70%;
+  }
 }
 
 .secondary-button::before {
