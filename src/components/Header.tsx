@@ -7,6 +7,15 @@ import Button from "./Button";
 import Icon from "./Icon";
 import ButtonArrow from "../../public/icons/button-arrow.svg";
 import { useLoading } from "@/context/LoadingContext";
+import {
+	slideUpStyle,
+	containerRevealStyle,
+	imageSlideUpStyle,
+	buttonRevealStyle,
+	iconSlideDownStyle,
+	fadeUpStyle,
+	arrowBounceStyle,
+} from "@/animations/headerAnims";
 
 type HeaderProps = {
 	variant?: "default" | "peach";
@@ -16,42 +25,6 @@ const variantColors: Record<NonNullable<HeaderProps["variant"]>, string> = {
 	default: "#FF8702",
 	peach: "#FFC081",
 };
-
-import { animStyle } from "@/lib/animation";
-
-const EASING = "cubic-bezier(0.65,0.05,0.36,1)";
-const SNAP = "cubic-bezier(0.79,0.14,0.15,0.86)";
-
-const slideUpStyle = animStyle({
-	animation: `slide-up 0.4s ${EASING} __delay__ms both`,
-	hidden: { transform: "translateY(100%)" },
-});
-
-const containerRevealStyle = animStyle({
-	animation: `container-reveal 0.8s ${EASING} __delay__ms both`,
-	hidden: { clipPath: "inset(100% 1% 0 1%)", transform: "translateY(-20px)" },
-});
-
-const imageSlideUpStyle = animStyle({
-	animation: `image-slide-up 0.7s ${SNAP} __delay__ms both`,
-	hidden: { transform: "translateY(100%)" },
-});
-
-const buttonRevealStyle = animStyle({
-	animation: `button-reveal 0.4s ${EASING} __delay__ms both`,
-	hidden: { transform: "scale(0)", transformOrigin: "top center" },
-	loaded: { transformOrigin: "top center" },
-});
-
-const iconSlideDownStyle = animStyle({
-	animation: `icon-slide-down 0.35s ${SNAP} __delay__ms both`,
-	hidden: { transform: "translateY(-150%)" },
-});
-
-const fadeUpStyle = animStyle({
-	animation: `fade-up 0.4s ${EASING} __delay__ms both`,
-	hidden: { opacity: 0 },
-});
 
 export default function Header({ variant = "default" }: HeaderProps) {
 	const { isLoaded } = useLoading();
@@ -124,10 +97,12 @@ export default function Header({ variant = "default" }: HeaderProps) {
 							style={buttonRevealStyle(isLoaded, 300)}
 						>
 							<span style={iconSlideDownStyle(isLoaded, 640)}>
-								<Icon
-									svg={ButtonArrow}
-									className="rotate-90 text-white w-6 h-5 lg:w-[34px] lg:h-[28px]"
-								/>
+								<span style={arrowBounceStyle(isLoaded)} className="block">
+									<Icon
+										svg={ButtonArrow}
+										className="rotate-90 text-white w-6 h-5 lg:w-[34px] lg:h-[28px]"
+									/>
+								</span>
 							</span>
 						</button>
 					</div>

@@ -18,17 +18,26 @@ export default function Button({
 	const buttonClassNames = clsx(
 		"uppercase text-sm flex items-center cursor-pointer smplus:text-base md:text-lg",
 		{
-			"border border-orange-500 text-orange h-[38px] pl-5  pr-4 rounded-full gap-2 md:gap-5":
+			"primary-button border border-orange text-orange h-[38px] pl-5 pr-4 rounded-full gap-2 md:gap-5":
 				variant === "primary",
-			"text-black underline underline-offset-[6px]": variant === "secondary",
+			"secondary-button text-black px-6 py-1.5 relative flex":
+				variant === "secondary",
 		},
 	);
 
 	return (
 		<button type={type} tabIndex={tabIndex} className={buttonClassNames}>
-			{children}
-			{variant === "primary" && (
-				<Icon svg={ButtonArrow} width={14} height={10} strokeWidth={1.5} />
+			{variant === "primary" ? (
+				<span className="flex items-center gap-2 md:gap-5">
+					{children}
+					<Icon
+						svg={ButtonArrow}
+						className="w-4 h-3 lg:w-[15px] lg:h-[10px]"
+						strokeWidth={1.5}
+					/>
+				</span>
+			) : (
+				children
 			)}
 		</button>
 	);

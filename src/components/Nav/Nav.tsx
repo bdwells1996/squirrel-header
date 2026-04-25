@@ -45,12 +45,13 @@ export default function Nav() {
 						key={link.href}
 						href={link.href}
 						className={clsx("uppercase", {
-							"bg-orange text-white px-6 py-2 rounded-full font-fatfrank":
+							"nav-button bg-orange text-white px-6 py-2 rounded-full font-fatfrank":
 								link.style === "Button",
-							"font-manrope font-semibold text-black": link.style !== "Button",
+							"font-manrope font-semibold text-black hover:text-black/80 transition-colors":
+								link.style !== "Button",
 						})}
 					>
-						{link.label}
+						{link.style === "Button" ? <span>{link.label}</span> : link.label}
 					</Link>
 				))}
 			</div>
