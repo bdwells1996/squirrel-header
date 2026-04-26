@@ -31,9 +31,7 @@ export const iconSlideDownStyle = animStyle({
 });
 
 export const arrowBounceStyle = (isLoaded: boolean): React.CSSProperties =>
-	isLoaded
-		? { animation: "arrow-bounce 3.5s ease-in-out 1.8s infinite" }
-		: {};
+	isLoaded ? { animation: "arrow-bounce 3.5s ease-in-out 1.8s infinite" } : {};
 
 export const fadeUpStyle = animStyle({
 	animation: `fade-up 0.4s ${EASING} __delay__ms both`,
