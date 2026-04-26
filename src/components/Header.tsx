@@ -113,7 +113,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
 				alt=""
 				width={240}
 				height={190}
-				className="absolute -bottom-2 left-0"
+				className="absolute -bottom-2 left-0 lg:w-150 lg:rotate-y-180 lg:right-0 lg:left-[auto] lg:-bottom-70"
 			/>
 		</header>
 	);
