@@ -93,7 +93,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
 					<div className="basis-full flex justify-center mt-[48px] mb-[54px] lg:mt-3 lg:justify-start">
 						<button
 							type="button"
-							className="w-[66px] h-[66px] rounded-full bg-honey flex items-center justify-center cursor-pointer overflow-hidden lg:w-[108px] lg:h-[108px] lg:translate-x-84"
+							className="w-[66px] h-[66px] rounded-full bg-honey flex items-center justify-center cursor-pointer overflow-hidden hover:scale-[0.96] transition-transform lg:w-[108px] lg:h-[108px] lg:translate-x-84"
 							style={buttonRevealStyle(isLoaded, 300)}
 						>
 							<span style={iconSlideDownStyle(isLoaded, 640)}>
@@ -113,7 +113,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
 				alt=""
 				width={240}
 				height={190}
-				className="absolute -bottom-2 left-0 lg:w-150 lg:rotate-y-180 lg:right-0 lg:left-[auto] lg:-bottom-70"
+				className="absolute -bottom-2 left-0 -z-1 lg:w-150 lg:rotate-y-180 lg:right-0 lg:left-[auto] lg:-bottom-70"
 			/>
 		</header>
 	);
