@@ -88,7 +88,8 @@ export default function LoadingScreen({
 		>
 			<div ref={squiggleRef} className="w-full h-full relative">
 				<h1 className="font-fatfrank text-white text-4xl absolute left-1/2 top-[calc(200px)] -translate-x-1/2 smplus:top-[calc(300px)] md:top-[calc(400px)] lg:top-[calc(450px)]">
-					{counter}%
+					{counter}
+					<span className="font-manrope font-bold">%</span>
 				</h1>
 				<SquigglePath
 					svgRef={svgRef}
