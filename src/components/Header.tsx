@@ -64,7 +64,7 @@ export default function Header() {
 							alt="God of War"
 							width={765}
 							height={430}
-							className="w-full aspect-[197/179] lg:aspect-video"
+							className="w-full object-cover aspect-[197/179] lg:aspect-video xl:h-[520px]"
 							style={imageSlideUpStyle(isLoaded, 0)}
 						/>
 					</div>
