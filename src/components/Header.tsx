@@ -17,27 +17,18 @@ import {
 	arrowBounceStyle,
 } from "@/animations/headerAnims";
 
-type HeaderProps = {
-	variant?: "default" | "peach";
-};
-
-const variantColors: Record<NonNullable<HeaderProps["variant"]>, string> = {
-	default: "#FF8702",
-	peach: "#FFC081",
-};
-
-export default function Header({ variant = "default" }: HeaderProps) {
+export default function Header() {
 	const { isLoaded } = useLoading();
 
 	return (
 		<header className="w-full flex justify-center relative overflow-hidden">
 			<SquigglePath
-				color={variantColors[variant]}
+				color="#FF8702"
 				className="absolute left-0 top-[30vw] z-[-1] hidden lg:block xl:top-[17vw] 2xl:top-[8vw]"
 			/>
 			<SquigglePath
 				variant="mobile"
-				color={variantColors[variant]}
+				color="#FF8702"
 				className="absolute left-0 -top-[17vw] block z-[-1] smplus:-top-[25vw] md:-top-[39vw] lg:hidden"
 			/>
 			<div className="flex flex-col items-center w-full px-4">
