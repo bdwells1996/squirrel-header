@@ -1,4 +1,10 @@
-export const navLinks = [
+type NavLink = {
+	label: string;
+	href: string;
+	style: "Link" | "Button";
+};
+
+export const navLinks: NavLink[] = [
 	{
 		label: "About",
 		href: "/about",
